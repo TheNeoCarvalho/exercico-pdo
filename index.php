@@ -9,9 +9,9 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="jumbotron">
-				<h3>Formulário de Cadastro</h3>
-			</div>
+				<div class="jumbotron">
+					<h3>Formulário de Cadastro</h3>
+				</div>
 			<div class="row">	
 					<div class="col-md-2">		
 			</div>
@@ -19,15 +19,15 @@
 						<form method="post">
 						<div class="form-group">
 							<label>Nome</label>
-							<input class="form-control" type="text" name="nome">
+							<input class="form-control" required="true" type="text" name="nome">
 						</div>
 						<div class="form-group">
 							<label>Email</label>	
-							<input class="form-control" type="email" name="email">
+							<input class="form-control" required="true" type="email" name="email">
 							</div>
 						<div class="form-group">
 							<label>Senha</label>	
-							<input class="form-control" type="password" name="senha">
+							<input class="form-control" required="true" type="password" name="senha">
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary form-control"><i class="fa fa-floppy-o"></i> Salvar</button>
@@ -41,11 +41,12 @@
 					</div>
 				
 				</div>
+				
 			
-			<?php
-			//error_reporting(0);
-			include_once 'UsuarioDAO.php';
-			include_once 'Models/Usuario.php';
+					<?php
+			error_reporting(0);
+			include_once (realpath('./UsuarioDAO.php'));
+			include_once (realpath('./Models/Usuario.php'));
 
 			$UsuarioDAO  = new UsuarioDAO();
 			$usuario = new Usuario();
@@ -58,8 +59,29 @@
 
 				$UsuarioDAO->createUser($usuario);
 			}
+			?>
+			<?php
+			echo '<div class="row">
+					<div class="col-md-12">
+					<table class="table">
+					<thead>
+						<tr>
+							<th>Id</td>
+							<th>Nome</td>
+							<th>Email</td>
+						</tr>
+					</thead>
+					<tbody>
+						'.$UsuarioDAO->all().'
+					</tbody>	
+					</table>
+					</div>
+				</div>';
+
+
 			
 			?>
+
 
 			</body>
 			</html>

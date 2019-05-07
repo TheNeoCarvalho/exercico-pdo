@@ -5,6 +5,28 @@ include('Models/Usuario.php');
 
 class usuarioDAO{
 
+
+	public function all(){
+		
+		$con = new Con();
+		$stmt = $con->Conexao();
+
+		$sql = $stmt->prepare("SELECT * FROM usuarios");
+		
+		if($sql->execute()){
+			while($rs = $sql->fetch(PDO::FETCH_OBJ)){
+				echo "
+				<tr>
+					<td>".$rs->id."</td>
+					<td>".$rs->nome."</td>
+					<td>".$rs->email."</td>
+				</tr>";
+			}
+
+		}
+
+	}
+	
 	public function createUser(Usuario $usuario){
 
 		$con = new Con();
@@ -20,7 +42,9 @@ class usuarioDAO{
 		$sql->bindParam(2,$email);
 		$sql->bindParam(3,$senha); 
 
-		$sql->execute();
+		if($sql->execute()){
+			echo "<script>alert('Usuário cadastrado com sucesso!')</script>";
+		}
 
 	}
 
