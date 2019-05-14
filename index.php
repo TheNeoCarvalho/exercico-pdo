@@ -9,80 +9,30 @@
 	</head>
 	<body>
 		<div class="container">
-				<div class="jumbotron">
-					<h3>Formulário de Cadastro</h3>
-				</div>
-			<div class="row">	
-					<div class="col-md-2">		
-			</div>
-					<div class="col-md-8">
-						<form method="post">
-						<div class="form-group">
-							<label>Nome</label>
-							<input class="form-control" required="true" type="text" name="nome">
-						</div>
-						<div class="form-group">
-							<label>Email</label>	
-							<input class="form-control" required="true" type="email" name="email">
-							</div>
-						<div class="form-group">
-							<label>Senha</label>	
-							<input class="form-control" required="true" type="password" name="senha">
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary form-control"><i class="fa fa-floppy-o"></i> Salvar</button>
-						</div>
-					</form>
-					</div>
 
-					<div class="col-md-2">
-						
-					</div>
-					</div>
-				
-				</div>
 				
 			
-					<?php
-			error_reporting(0);
-			include_once (realpath('./UsuarioDAO.php'));
-			include_once (realpath('./Models/Usuario.php'));
-
-			$UsuarioDAO  = new UsuarioDAO();
-			$usuario = new Usuario();
-
-			if(isset($_POST)){
-
-				$usuario->setNome($_POST['nome']);
-				$usuario->setEmail($_POST['email']);
-				$usuario->setSenha($_POST['senha']);
-
-				$UsuarioDAO->createUser($usuario);
-			}
-			?>
 			<?php
-			echo '<div class="row">
-					<div class="col-md-12">
-					<table class="table">
-					<thead>
-						<tr>
-							<th>Id</td>
-							<th>Nome</td>
-							<th>Email</td>
-						</tr>
-					</thead>
-					<tbody>
-						'.$UsuarioDAO->all().'
-					</tbody>	
-					</table>
-					</div>
-				</div>';
+				//error_reporting(0);
+				require('config/config.php');
+				$soma = 0;
+				$media = 0;
+				$menor = 0;
+				$sql = "SELECT Valor FROM pedido";
+				$query = mysqli_query($con, $sql);
+				while($v = mysqli_fetch_array($query)){
+					if($v['Valor'] > $menor){
+						$menor = $v['Valor'];
+					}					
+				}
 
 
-			
+				//echo "Valor total dos pedidos: $soma";	
+				echo "Média dos pedidos: $menor";	
+
+
+
 			?>
-
-
 			</body>
 			</html>
 

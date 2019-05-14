@@ -3,8 +3,7 @@
 include('config/config.php');
 include('Models/Usuario.php');
 
-class usuarioDAO{
-
+class UsuarioDAO{
 
 	public function all(){
 		
@@ -16,17 +15,41 @@ class usuarioDAO{
 		if($sql->execute()){
 			while($rs = $sql->fetch(PDO::FETCH_OBJ)){
 				echo "
-				<tr>
-					<td>".$rs->id."</td>
-					<td>".$rs->nome."</td>
-					<td>".$rs->email."</td>
-				</tr>";
+
+						<h5>".$rs->id." - ".$rs->nome." - ".$rs->email."</h5>";
 			}
 
 		}
 
 	}
+
+	public function Deleta($id){
+
+		$con = new Con();
+		$stmt = $con->Conexao();
+
+		$sql = $stmt->prepare("DELETE FROM usuarios WHERE id = ".$id);
+		$sql->execute();
+
+	}
 	
+
+	public function Atuliza(Usuario $usuario){
+
+		$con = new Con();
+		$stmt = $con->Conexao();
+
+		$id = $usuario->getId();
+		$nome = $usuario->getNome();
+		$email = $usuario->getEmail();
+		$senha = md5($usuario->getSenha());
+
+		$sql = $stmt->prepare("UPDATE usuarios SET nome='".$nome."', email='".$email."', senha='".$senha."' WHERE id = ".$id);
+
+		$sql->execute();
+		
+	}
+
 	public function createUser(Usuario $usuario){
 
 		$con = new Con();

@@ -23,6 +23,7 @@ class Usuario{
         $this->email = $email;
         return $this;
     }
+    
     public function getSenha(){
         return $this->senha;
     }
